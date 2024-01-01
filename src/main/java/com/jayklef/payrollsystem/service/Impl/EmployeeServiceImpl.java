@@ -1,11 +1,13 @@
 package com.jayklef.payrollsystem.service.Impl;
 
+import com.jayklef.payrollsystem.dto.EmailDetails;
 import com.jayklef.payrollsystem.dto.EmployeeRequest;
 import com.jayklef.payrollsystem.dto.PayrollResponse;
 import com.jayklef.payrollsystem.dto.SalaryInfo;
 import com.jayklef.payrollsystem.model.Employee;
 import com.jayklef.payrollsystem.repository.CategoryRepository;
 import com.jayklef.payrollsystem.repository.EmployeeRepository;
+import com.jayklef.payrollsystem.service.EmailService;
 import com.jayklef.payrollsystem.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private EmailService emailService;
     @Override
     public PayrollResponse createEmployee(EmployeeRequest employeeRequest) {
 
@@ -33,6 +38,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .build();
 
         Employee newEmployee = employeeRepository.save(employee);
+
+        EmailDetails emailDetails = EmailDetails.builder()
+                .recipient(employee.getEmail())
+                .subject("Account Opened")
+                .message("You have been successfully created as an employee of XYZ")
+                .build();
+        emailService.sendEmail(emailDetails);
 
         return PayrollResponse.builder()
                 .responseCode("")

@@ -1,7 +1,6 @@
 package com.jayklef.payrollsystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -14,6 +13,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "categories")
 public class Category {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
     private String name;
     private BigDecimal salary;
