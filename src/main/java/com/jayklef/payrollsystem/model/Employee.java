@@ -24,6 +24,8 @@ public class Employee {
     private String phoneNumber;
     private String address;
     private BigDecimal salary;
+    private String insuranceNumber;
+    private String taxNumber;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
