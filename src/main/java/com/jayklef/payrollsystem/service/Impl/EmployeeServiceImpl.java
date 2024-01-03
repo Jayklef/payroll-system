@@ -41,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         EmailDetails emailDetails = EmailDetails.builder()
                 .recipient(employee.getEmail())
-                .subject("Account Opened")
+                .subject("Account Opened Successfully")
                 .message("You have been successfully created as an employee of XYZ")
                 .build();
         emailService.sendEmail(emailDetails);
